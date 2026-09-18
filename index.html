@@ -38,7 +38,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .sec-title{font-size:17px;font-weight:800;margin-bottom:14px}
 .pix-lbl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-fg);margin-bottom:16px}
 
-/* NOVO GRID DE BOTÕES COM FLEXBOX: Mantém os itens em uma única linha */
+/* NOVO GRID DE BOTÕES COM FLEXBOX */
 .amt-grid{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:15px}
 .amt-grid::-webkit-scrollbar{display:none}
 
@@ -206,7 +206,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   document.getElementById('balNum').textContent = fmt(balance);
 
   // ─── Atualiza botão final ───────────────────────────────────────
-  // Apenas alteramos o texto do botão fixo do HTML (removemos o loop que criava problemas)
   const btnTotal = document.getElementById('btn-saque-total');
   if(btnTotal){
     btnTotal.textContent = fmt(balance);
