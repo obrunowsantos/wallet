@@ -38,8 +38,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .sec-title{font-size:17px;font-weight:800;margin-bottom:14px}
 .pix-lbl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-fg);margin-bottom:16px}
 
-.amt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
-.amt-btn{padding:12px 4px;border-radius:1rem;border:2px solid var(--border);background:hsl(220 14% 92%/.6);font-size:13px;font-weight:800;color:var(--muted-fg);cursor:pointer;text-align:center;transition:all .18s;font-family:'Poppins',sans-serif}
+/* NOVO GRID DE BOTÕES COM FLEXBOX */
+.amt-grid{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:15px}
+.amt-grid::-webkit-scrollbar{display:none}
+
+.amt-btn{flex:1;min-width:75px;padding:12px 4px;border-radius:1rem;border:2px solid var(--border);background:hsl(220 14% 92%/.6);font-size:13px;font-weight:800;color:var(--muted-fg);cursor:pointer;text-align:center;transition:all .18s;font-family:'Poppins',sans-serif}
 .amt-btn:hover{border-color:hsl(220 10% 45%/.4);color:var(--fg)}
 .amt-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 20px 25px -5px hsl(346 97% 55%/.25);transform:scale(1.05)}
 
@@ -107,12 +110,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       <div class="bal-confirm">✓ Saldo selecionado para saque</div>
     </div>
 
-
     <div class="fu d4">
       <div class="sec-title">Sacar dinheiro</div>
       <div class="pix-lbl"><span style="font-size:20px">🏦</span><span>Transferência bancária / PIX</span></div>
       
-      <!-- Div dos botões perfeitamente vazia para o script preencher -->
+      <!-- Div vazia pronta para o JS criar a linha de botões -->
       <div class="amt-grid" id="amt-grid"></div>
 
       <div class="pix-inputs">
